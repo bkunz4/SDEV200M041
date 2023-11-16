@@ -1,36 +1,36 @@
 import java.io.*;
 import java.util.*;
 
-public class Exercise_20_11 {
+public class SymbolMatch {
   public static void main(String[] args) throws IOException {
-    // Check command-line argument
+    // Checks command-line argument
     if (args.length != 1) {
-      System.out.println("Usage: Java Exercise_20_11 Source-codeFileName");
+      System.out.println("Usage: Java SymbolMatch Source-codeFileName");
       System.exit(0);
     }
 
-    // Check if file exists
+    // Checks if file exists
     File file = new File(args[0]);
     if (!file.exists()) {
       System.out.println("The file " + args[0] + " does not exist!");
       System.exit(1);
     }
 
-    // Create a stack
+    // Creates a stack
     Stack<Character> symbols = new Stack<>();
 
-    try ( // Create an input stream for file
+    try ( // Creates an input stream for file
         Scanner input = new Scanner(file);
     ) {
-      // Continuously read chars from input
+      // Continuously reads chars from input
       while (input.hasNext()) {
         String line = input.nextLine();
         for (int i = 0; i < line.length(); i++) {
           char ch = line.charAt(i);
-          // Push symbols (, {, and [ on to the stack
+          // Pushes symbols (, {, and [ on to the stack
           if (ch == '(' || ch == '{' || ch == '[') {
             symbols.push(ch);
-          } // Process stack
+          } // Processes stack
           else if (ch == ')' || ch == '}' || ch == ']') {
             processSymbols(symbols, ch);
           }
@@ -38,14 +38,14 @@ public class Exercise_20_11 {
       }
     }
 
-    System.out.println("The Java source-code " +
+    System.out.println("The source-code " +
       (symbols.isEmpty() ? "has" : "does not have") + " correct pairs.");	
   }
 
-  /** Method Matchs grouping symbols */
+  // Method matches grouping symbols
   private static void processSymbols(
       Stack<Character> stack, Character ch) {
-    // Remove matching symbols from stack
+    // Removes matching symbols from stack
     if ((stack.peek() == '(' && ch == ')') ||
        (stack.peek() == '[' && ch == ']') ||
        (stack.peek() == '{' && ch == '}')) {
